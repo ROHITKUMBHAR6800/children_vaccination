@@ -1,0 +1,185 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    /* margin: 1%; */
+    background-color: #ffffff;
+}
+
+#top {
+    border: 3px;
+    padding: 15px;
+    margin: 0px;
+    display: flex;
+    background-color: #f1f9a9;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-around;
+}
+
+#contentmain{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+a {
+    text-decoration: none;
+}
+
+#top h1 {
+    color: #2705d0;
+}
+
+#top h2 {
+    color: #d70abf;
+    text-align: center;
+}
+
+.headerimg {
+    height: 90px;
+    width: 100px;
+}
+
+#navbar {
+    border-radius: 10px;
+    margin: 4px;
+    padding: 5px 3rem;
+    background-color: #f79e18;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+#navimg i {
+    border: 1px solid;
+    margin: 0 0.25rem;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    padding: 0.25rem;
+    color: #000000;
+}
+
+#navbar ul {
+    display: flex;
+    list-style-type: none;
+}
+
+#home ul li a {
+    color: #fbfbfb;
+    text-decoration: none;
+    padding: 10px;
+    margin: 0 20px;
+    font-size: 22px;
+    justify-content: space-around;
+}
+
+#main{
+    width: 65%;
+    margin:0 auto ;
+    border: 6px inset;
+    background: #cdd2c6;
+}
+
+#HeadingOfForm{
+    background-color: #d4b8da;
+    border: 5px outset ;
+    margin: 5px 10%;
+    padding: 5px;
+    text-align: center;
+    font-size:1.7rem ;
+    color: #f80536;
+   
+}
+
+.note,#alert{
+    font-size: 14px;
+    color: #f80536;
+}
+
+.firstflex{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 10px;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-between;
+    justify-content: space-around;
+}
+
+.pbm{
+    border: 3px outset;
+    margin: 5px 2px;
+    padding: 2px;
+    width: 21em;
+    
+}
+
+.pbm1{
+    border: 3px inset;
+    margin: 3px 2px;
+    padding: 2px;
+}
+
+.pbm2{
+    border: 4px outset;
+    margin: 6px;
+    padding: 4px;
+    font-size: 20px;
+    color: rgb(243, 62, 62);
+    background-color: #e9ed9a;
+}
+
+.pbm3{
+    border: 5px outset;
+    margin: 15px 2em;
+    padding: 4px;
+    text-align: center;
+    justify-content: center;
+   
+}
+
+#birth_cert_id{
+    width: 60%;
+    align-items: center;
+    justify-content: center;
+    border: 3px outset;
+    margin: 3px auto;
+    padding: 3px;
+}
+
+#pagebutton{
+    margin: 4px;
+    padding: 4px;
+    width: 90%;
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: space-between; 
+    margin: 0 auto;  
+}
+
+#pagebutton #backpage a{
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+}
+
+#pagebutton #backpage{
+    background-color: #713cec;
+    border: none;
+    border-radius: 15px;
+    padding: 5px 20px;
+    margin: 2px;
+    border: 4px outset;
+}
+
+#pagebutton input[type="submit"]{
+    background-color: #713cec;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 15px;
+    padding: 5px 15px;
+    margin: 2px;
+    border: 5px outset;
+}

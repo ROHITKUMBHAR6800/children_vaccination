@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login Form</title>
+    <link rel="stylesheet" href="loginForm.css">
+    <link rel="stylesheet" href="RegistrationForm.css">
+</head>
+
+<body>
+    <header>
+        <div id="top">
+            <img class="headerimg" src="asset/image/navsymbol.png" alt="">
+            <div id="heading">
+                <div id="contentmain">
+                    <a href="https://www.unicef.org/india/stories/know-your-childs-vaccination-schedule"
+                        target="_blank">
+                        <h1>CHILD VACCINATION-</h1>
+                    </a>
+                    <a href="https://www.unicef.org/india/topics/immunization" target="_blank">
+                        <h1>IMMUNIZATION PROGRAMME</h1>
+                    </a>
+                </div>
+                <a href="https://main.mohfw.gov.in/" target="_blank">
+                    <h2>HEALTHY CHILD HEALTHY INDIA</h2>
+                </a>
+            </div>
+            <img class="headerimg" src="asset/image/babyhand.png" alt="logo">
+        </div>
+        <nav id="navbar">
+            <div id="navimg">
+                <a href="homepage.html"><i class="fa-solid fa-house"></i></a>
+            </div>
+            <div id="home" class="ul">
+                <ul>
+                    <li><a href="homepage.html">Home</a></li>
+                    <li><a href="">About Us</a></li>
+                    <li><a href="">Contact Us</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main id="container">
+        <form action="" class="separate" method="post">
+            <div class="sep1">
+                <h2>ADMIN LOGIN</h2>
+            </div>
+            <div class="sep1" >
+                <input type="text" id="adminid" class="sep2" name="adminId" autocomplete="off" placeholder="ENTER ADMIN ID">
+            </div>
+            <div class="sep1">
+                <input type="password" id="password" class="sep2" name="password" autocomplete="off"
+                    placeholder="ENTER PASSWORD">
+            </div>
+            <div id="login">
+                <input type="submit" value="Login">
+            </div>
+            <div class="sep1" id="forpwd">
+                <a href="adminForpwdForm.html">FORGOT PASSWORD ?</a>
+            </div>
+        </form>
+        <div class="separate">
+            <div class="sep1" id="newsign">
+                <span>CREATE NEW ADMIN</span>
+            </div>
+            <div id="signup">
+                <a href="adminRegistrationForm.html"><input type="submit" value="Signup"></a>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
