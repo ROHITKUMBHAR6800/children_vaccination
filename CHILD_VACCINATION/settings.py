@@ -137,15 +137,10 @@ STATIC_ROOT = BASE_DIR / 'productionfiles'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 # DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-# EMAIL_HOST="smtp.gmail.com"
-# EMAIL_PORT="465"
-# EMAIL_HOST_USER="phchol06082001@gmail.com"
-# EMAIL_HOST_PASSWORD="jphsbmxbiasfuinx"
-# EMAIL_USE_SSL=True
 EMAIL_HOST="smtp.gmail.com"
 EMAIL_PORT="465"
-EMAIL_HOST_USER="rohitkumbhar6800@gmail.com"
-EMAIL_HOST_PASSWORD="mxwkztjctetvwugr"
+EMAIL_HOST_USER="phchol06082001@gmail.com"
+EMAIL_HOST_PASSWORD=""
 EMAIL_USE_SSL=True
 
 

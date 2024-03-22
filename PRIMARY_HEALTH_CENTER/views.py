@@ -40,27 +40,27 @@ def outputSendMail(emailId,output):
     if len(output)==4 and output.isdigit():
         send_mail("email verification",
                 "     This is system generated mail, please don't reply and share anything. This is your otp: "+output,
-                "rohitkumbhar6800@gmail.com",
+                "phchol06082001@gmail.com",
                 [emailId])
     elif output.startswith('admin00') or output.startswith('user00') or output.startswith('ch00-'):
         send_mail("Your registration is successful",
               "    This is system generated mail, please don't share your id to anyone. It will help to further use over CHILD VACCINATION-IMMUNITION PROGRAMME portal. This is your id: "+output,
-              "rohitkumbhar6800@gmail.com",
+              "phchol06082001@gmail.com",
               [emailId])
     elif len(output)==8 and output.startswith('@'):
         send_mail("Forget password",
               "    This is system generated mail, please don't share your password to anyone. It will help to further use over CHILD VACCINATION-IMMUNITION PROGRAMME portal. This is your new password: "+output,
-              "rohitkumbhar6800@gmail.com",
+              "phchol06082001@gmail.com",
               [emailId])
     elif output=="update":
         send_mail("Cedentials updated successfully",
               "    This is system generated mail. Your credentials updated successfully on CHILD VACCINATION-IMMUNITION PROGRAMME portal. ",
-              "rohitkumbhar6800@gmail.com",
+              "phchol06082001@gmail.com",
               [emailId])
     elif output=="delete":
         send_mail("Remove by ADMIN",
               "    This is system generated mail. From now your are not a part of CHILD VACCINATION-IMMUNITION PROGRAMME portal. Your credentials deleted by 'ADMIN'. ",
-              "rohitkumbhar6800@gmail.com",
+              "phchol06082001@gmail.com",
               [emailId])
       
 
@@ -350,7 +350,7 @@ def vaccination_reminder_mail():
     for data in match_child_vac_dates:
         send_mail("VACCINATION REMAINDER",
                   "Your child should be vaccinated within this week. Please kindly visit your near PRIMARY HEALTH CENTER.",
-                  "rohitkumbhar6800@gmail.com",
+                  "phchol06082001@gmail.com",
                   [data.email])
     
     for data in match_child_vac_dates:
@@ -437,7 +437,7 @@ vaccination_reminder_mail()
 #     for data in match_child_vac_dates:
 #         send_mail("VACCINATION REMINDER",
 #                   "Your child should be vaccinated within this week. Please kindly visit your nearest PRIMARY HEALTH CENTER.",
-#                   "rohitkumbhar6800@gmail.com",
+#                   "phchol06082001@gmail.com",
 #                   [data.email])
 
 #     # Bulk update vaccination dates
