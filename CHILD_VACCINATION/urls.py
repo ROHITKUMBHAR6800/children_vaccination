@@ -20,7 +20,8 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.homepage),
+    # path('',views.homepage),
+    path('',views.index),
     path('signupAdmin/',views.admin_registration),
     path('signupUser/',views.user_registration),
     path('signupChild/',views.child_registration),
