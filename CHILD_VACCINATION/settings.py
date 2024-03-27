@@ -146,5 +146,7 @@ EMAIL_USE_SSL=True
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-
+#  Celery Settings
+CELERY_BROKER_URL ="redis://127.0.0.1:6379"
+CELERY_TIMEZONE = "Asia/Kolkata"
 
