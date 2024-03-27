@@ -1,0 +1,5 @@
+# versions of used tools:
+django==5.0.1
+celery==5.3.6
+redis==5.0.3
+pymysql==1.1.0
