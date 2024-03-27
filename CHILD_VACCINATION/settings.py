@@ -140,7 +140,7 @@ STATIC_ROOT = BASE_DIR / 'productionfiles'
 EMAIL_HOST="smtp.gmail.com"
 EMAIL_PORT="465"
 EMAIL_HOST_USER="phchol06082001@gmail.com"
-EMAIL_HOST_PASSWORD=""
+EMAIL_HOST_PASSWORD="jphsbmxbiasfuinx"
 EMAIL_USE_SSL=True
 
 
