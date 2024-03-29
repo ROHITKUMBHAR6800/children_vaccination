@@ -68,6 +68,11 @@ def homepage(request):
     template=loader.get_template('homepage.html')
     return HttpResponse(template.render())
 
+def index(request):
+    print("Results: ")
+    template=loader.get_template('homepage.html')
+    return render(request,template.render())
+
 def admin_registration(request):
     mail=request.POST.get("email")
     if len(Admin.objects.filter(email=mail))>0:
