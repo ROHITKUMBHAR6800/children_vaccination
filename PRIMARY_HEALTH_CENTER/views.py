@@ -12,7 +12,7 @@ from PRIMARY_HEALTH_CENTER.models import *
 from datetime import datetime,date
 from dateutil.relativedelta import relativedelta
 from django.db.models import Q
-
+# from CHILD_VACCINATION.celery import add
 
 def otp():
     otp=""
@@ -66,12 +66,25 @@ def outputSendMail(emailId,output):
 
 def homepage(request):
     template=loader.get_template('homepage.html')
-    return HttpResponse(template.render())
+    return HttpResponse(request,template.render())
 
-def index(request):
-    print("Results: ")
-    template=loader.get_template('homepage.html')
-    return render(request,template.render())
+
+# def admin_login_form(request):
+#     template=loader.get_template('adminLoginForm.html')
+#     return HttpResponse(template.render())
+
+# def admin_login_form(request):
+#     template=loader.get_template('adminLoginForm.html')
+#     return render(request, 'adminLoginForm.html')
+
+
+# def index(request):
+#     print("Results: ")
+#     # Enqueue Task using desplay()
+#     result1= add.delay(10,20)
+#     print("result 1: ",result1)
+#     # template=loader.get_template('index.html')
+#     return render(request,'index.html')
 
 def admin_registration(request):
     mail=request.POST.get("email")
@@ -352,61 +365,66 @@ def vaccination_reminder_mail():
                                                             Q(vaccination_60month=today_date)
                                                             )
     
+    mail_list = []
     for data in match_child_vac_dates:
-        send_mail("VACCINATION REMAINDER",
-                  "Your child should be vaccinated within this week. Please kindly visit your near PRIMARY HEALTH CENTER.",
-                  "phchol06082001@gmail.com",
-                  [data.email])
+        mail_list.append(data.email)
+
+    send_mail("VACCINATION REMAINDER",
+            "Your child should be vaccinated within this week. Please kindly visit your near PRIMARY HEALTH CENTER.",
+            "phchol06082001@gmail.com",
+            mail_list)
     
+    replace="remaining"
+    child_list = []
     for data in match_child_vac_dates:
-        replace="remaining"
         today=str(today_date)
         if data.vaccination_1month==today:
             data.vaccination_1month=replace
-            data.save()
-            # print(replace)
+
         elif data.vaccination_2month==today:
             data.vaccination_2month=replace
-            data.save()
+           
         elif data.vaccination_3month==today:
             data.vaccination_3month=replace
-            data.save()
+           
         elif data.vaccination_6month==today:
             data.vaccination_6month=replace
-            data.save()
+           
         elif data.vaccination_7month==today:
             data.vaccination_7month=replace
-            data.save()
+            
         elif data.vaccination_8month==today:
             data.vaccination_8month=replace
-            data.save()
+           
         elif data.vaccination_9month==today:
             data.vaccination_9month=replace
-            data.save()
+            
         elif data.vaccination_12month==today:
             data.vaccination_12month=replace
-            data.save()
+            
         elif data.vaccination_15month==today:
             data.vaccination_15month=replace
-            data.save()
+            
         elif data.vaccination_18month==today:
             data.vaccination_18month=replace
-            data.save()
+            
         elif data.vaccination_24month==today:
             data.vaccination_24month=replace
-            data.save()
+          
         elif data.vaccination_36month==today:
             data.vaccination_36month=replace
-            data.save()
+            
         elif data.vaccination_48month==today:
             data.vaccination_48month=replace
-            data.save()
+           
         elif data.vaccination_60month==today:
             data.vaccination_60month=replace
-            data.save()
+        
+        data.save()
 
+    # child_list.save()
 
-vaccination_reminder_mail()
+# vaccination_reminder_mail()
 
 
 # from django.db.models import F
@@ -450,3 +468,11 @@ vaccination_reminder_mail()
 #         match_child_vac_dates.update(**{field: replacement})
 
 # vaccination_reminder_mail()m
+
+
+
+# celery implementation
+from .task import op_send_email
+def celeryTask(request):
+    op_send_email.delay()
+    return HttpResponse('Done')

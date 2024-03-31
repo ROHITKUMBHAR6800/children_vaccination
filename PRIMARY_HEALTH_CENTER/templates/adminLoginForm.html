@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,8 +7,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login Form</title>
-    <link rel="stylesheet" href="loginForm.css">
-    <link rel="stylesheet" href="RegistrationForm.css">
+    <!-- <link rel="stylesheet" href="loginForm.css">
+    <link rel="stylesheet" href="RegistrationForm.css"> -->
+    <link rel="stylesheet" href="{% static 'admin\css\loginForm.css' %}">
+    <link rel="stylesheet" href="{% static 'admin\css\RegistrationForm.css' %}">
 </head>
 
 <body>
