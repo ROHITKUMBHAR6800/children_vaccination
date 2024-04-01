@@ -20,8 +20,10 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('',views.homepage),
-    path('',views.index),
+    path('',views.homepage),
+    # path('admin_login/', views.admin_login_form),
+    # path("adminLoginForm.html",views.adminLoginForm),
+    # path('',views.index),
     path('signupAdmin/',views.admin_registration),
     path('signupUser/',views.user_registration),
     path('signupChild/',views.child_registration),
@@ -30,4 +32,5 @@ urlpatterns = [
     path('delUser/',views.delete_user),
     path('delChild/',views.delete_child),
     path('updChild/',views.update_child),
+    path('celeryTask/',views.celeryTask),
 ]

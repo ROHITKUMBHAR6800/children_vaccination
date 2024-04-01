@@ -1,0 +1,17 @@
+commands:
+	# celery logs
+		>>  celery -A CHILED_VACCINATION  worker --pool=solo -l info
+	# celery beat log
+		>> celery -A CHILD_VACCINATION beat -l INFO
+
+MODULE INSTALLATIONS:
+	django-celery-results
+	redis
+	celery
+	django-celery-beat
+
+APP INSTALLATIONS:
+
+# celery for windows
+https://github.com/tporadowski/redis/releases
+

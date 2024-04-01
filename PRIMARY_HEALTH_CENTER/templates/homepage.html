@@ -7,13 +7,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Child Vaccination Home Page</title>
-    <link rel="stylesheet" href="{% static 'CHILD_VACCINATION/productionfiles/admin/css/homepage.css' %}">
+    <link rel="stylesheet" href="{% static 'admin\css\homepage.css' %}">
 </head>
 
 <body>
     <header>
         <div id="top">
-            <!-- <img class="headerimg" src="CHILD_VACCINATION/productionfiles/admin/img/navsymbol.png" alt=""> -->
+            <img class="headerimg" src="asset/image/navsymbol.png" alt="">
             <div id="heading">
                 <div id="contentmain">
                     <a href="https://www.unicef.org/india/stories/know-your-childs-vaccination-schedule"
@@ -28,7 +28,7 @@
                     <h2>HEALTHY CHILD HEALTHY INDIA</h2>
                 </a>
             </div>
-            <!-- <img class="headerimg" src="CHILD_VACCINATION/productionfiles/admin/img/babyhand.png" alt="logo"> -->
+            <img class="headerimg" src="asset/image/babyhand.png" alt="logo">
         </div>
         <nav>
             <div id="navbar">
@@ -44,7 +44,7 @@
                 </div>
                 <div id="login" class="ul">
                     <ul>
-                        <li><a href="adminLoginForm.html">ADMIN LOGIN</a> </li>
+                        <li><a href="{% url 'admin_login' %}">ADMIN LOGIN</a> </li>
                         <li><a href="userLoginForm.html"> USER LOGIN</a></li>
                     </ul>
                 </div>
