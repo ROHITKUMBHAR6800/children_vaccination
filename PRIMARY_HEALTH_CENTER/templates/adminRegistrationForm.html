@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,13 +7,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Registration Form</title>
-    <link rel="stylesheet" href="RegistrationForm.css">
+    <link rel="stylesheet" href="{% static 'admin/css/RegistrationForm.css' %}">
 </head>
 
 <body>
     <header>
         <div id="top">
-            <img class="headerimg" src="asset/image/navsymbol.png" alt="">
+            <img class="headerimg" src="{% static 'admin/img/navsymbol.png' %}" alt="logo">
             <div id="heading">
                 <div id="contentmain">
                     <a href="https://www.unicef.org/india/stories/know-your-childs-vaccination-schedule"
@@ -27,25 +28,26 @@
                     <h2>HEALTHY CHILD HEALTHY INDIA</h2>
                 </a>
             </div>
-            <img class="headerimg" src="asset/image/babyhand.png" alt="logo">
+            <img class="headerimg" src="{% static 'admin/img/babyhand.png' %}" alt="logo">
         </div>
         <nav>
             <div id="navbar">
                 <div id="navimg">
-                    <a href="homepage.html"><i class="fa-solid fa-house"></i></a>
+                    <a href="/"><i class="fa-solid fa-house"></i></a>
                 </div>
                 <div id="home" class="ul">
                     <ul>
-                        <li><a href="homepage.html">Home</a></li>
-                        <li><a href="">About Us</a></li>
-                        <li><a href="">Contact Us</a></li>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/aboutUs">About Us</a></li>
+                        <li><a href="/contactUs">Contact Us</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
     <main id="main">
-        <form action="">
+        <form action="/signupAdmin/" method="post">
+            {% csrf_token %}
             <div id="HeadingOfForm">
                 <span>ADMIN REGISTRATION FORM</span>
             </div>
@@ -58,8 +60,8 @@
 
                     <div class="pbm3">
                         <label for="hospital"><span class="pbm">HOSPITAL NAME:</span> </label>
-                        <input type="text" id="hospital" class="pbm1" name="hospital" autocapitalize="on"
-                            placeholder="ENTER HOSPITAL NAME">
+                        <input type="text" id="hospital" class="pbm1" name="hospitalName" autocapitalize="on"
+                            placeholder="ENTER HOSPITAL NAME" required>
                     </div>
                     <div id="passwordfilds">
                         <div class="pbm3" id="Password">
@@ -85,7 +87,7 @@
                 <div class="firstflex">
                     <div class="pbm">
                         <label for="contact" class="pbm">CONTACT NO:</label>
-                        <input type="text" id="contact" class="pbm1" name="mobile" value autocomplete="off"
+                        <input type="text" id="contact" class="pbm1" name="mobileNo" value autocomplete="off"
                             placeholder="ENTER MOBILE NUMBER">
                     </div>
                     <div class="pbm">
@@ -126,26 +128,26 @@
                     <div class="">
                         <div class="pbm">
                             <label for="line4" class="pbm">AREA ADDRESS:</label>
-                            <input type="text" id="line4" class="pbm1" name="home_add" value
+                            <input type="text" id="line4" class="pbm1" name="areaAdd" value
                                 placeholder="ENTER PLOT NO/STREET NAME/AREA" autocapitalize="on">
                         </div>
                         <div class="pbm">
                             <label for="line3" class="pbm">VILLEGE/TOWN:</label>
-                            <select name="village_town" id="line3" class="pbm1">
+                            <select name="villageTown" id="line3" class="pbm1">
                                 <option>select village/town</option>
                                 <option>hol</option>
                             </select>
                         </div>
                         <div class="pbm">
                             <label for="line5" class="pbm">PINCODE:</label>
-                            <input type="text" id="line5" class="pbm1" name="pincode" value placeholder="ENTER PINCODE">
+                            <input type="text" id="line5" class="pbm1" name="pincode" placeholder="ENTER PINCODE">
                         </div>
                     </div>
                 </div>
             </div>
             <div id="pagebutton">
                 <div id="backpage">
-                    <a href="adminLoginForm.html">Back</a>
+                    <a href="/adminLoginForm">Back</a>
                 </div>
                 <div id="submit">
                     <input type="submit">

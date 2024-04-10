@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,14 +7,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Registration Form</title>
-    <link rel="stylesheet" href="RegistrationForm.css">
+    <link rel="stylesheet" href="{% static 'admin/css/RegistrationForm.css' %}">
 
 </head>
 
 <body>
     <header>
         <div id="top">
-            <img class="headerimg" src="asset/image/navsymbol.png" alt="">
+            <img class="headerimg" src="{% static 'admin/img/navsymbol.png' %}" alt="">
             <div id="heading">
                 <div id="contentmain">
                     <a href="https://www.unicef.org/india/stories/know-your-childs-vaccination-schedule"
@@ -28,18 +29,18 @@
                     <h2>HEALTHY CHILD HEALTHY INDIA</h2>
                 </a>
             </div>
-            <img class="headerimg" src="asset/image/babyhand.png" alt="logo">
+            <img class="headerimg" src="{% static 'admin/img/babyhand.png' %}" alt="logo">
         </div>
         <nav>
             <div id="navbar">
                 <div id="navimg">
-                    <a href="homepage.html"><i class="fa-solid fa-house"></i></a>
+                    <a href="/"><i class="fa-solid fa-house"></i></a>
                 </div>
                 <div id="home" class="ul">
                     <ul>
-                        <li><a href="homepage.html">Home</a></li>
-                        <li><a href="">About Us</a></li>
-                        <li><a href="">Contact Us</a></li>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/aboutUs">About Us</a></li>
+                        <li><a href="/contactUs">Contact Us</a></li>
 
                     </ul>
                 </div>
@@ -47,7 +48,7 @@
         </nav>
     </header>
     <main id="main">
-        <form action="" method="post">
+        <form action="/signupUser/" method="post">
             <div id="HeadingOfForm">
                 <span>USER REGISTRATION FORM</span>
             </div>
