@@ -12,10 +12,6 @@ from django.db.models import Q
 # Create your views here.
 
 def otp():
-    # otp=""
-    # for i in range(4):
-    #     ch=randint(0,9)
-    #     otp+=str(ch)
     otp=str(randint(100000,999999))
     return otp
 
@@ -429,53 +425,3 @@ def vaccination_reminder_mail():
 
 # vaccination_reminder_mail()
 
-
-# from django.db.models import F
-
-# def vaccination_reminder_mail():
-#     # Get today's date
-#     today_date = date.today()
-
-#     # Define the fields and their corresponding replacements
-#     fields_to_update = {
-#         'vaccination_1month': 'remaining',
-#         'vaccination_2month': 'remaining',
-#         'vaccination_3month': 'remaining',
-#         'vaccination_6month': 'remaining',
-#         'vaccination_7month': 'remaining',
-#         'vaccination_8month': 'remaining',
-#         'vaccination_9month': 'remaining',
-#         'vaccination_12month': 'remaining',
-#         'vaccination_15month': 'remaining',
-#         'vaccination_18month': 'remaining',
-#         'vaccination_24month': 'remaining',
-#         'vaccination_36month': 'remaining',
-#         'vaccination_48month': 'remaining',
-#         'vaccination_60month': 'remaining',
-#     }
-
-#     # Update matching records in bulk
-#     match_child_vac_dates = ChildVaccination.objects.filter(
-#         **{f'{field}': today_date for field in fields_to_update.keys()}
-#     )
-    
-#     # Send reminder emails
-#     for data in match_child_vac_dates:
-#         send_mail("VACCINATION REMINDER",
-#                   "Your child should be vaccinated within this week. Please kindly visit your nearest PRIMARY HEALTH CENTER.",
-#                   "phchol06082001@gmail.com",
-#                   [data.email])
-
-#     # Bulk update vaccination dates
-#     for field, replacement in fields_to_update.items():
-#         match_child_vac_dates.update(**{field: replacement})
-
-# vaccination_reminder_mail()m
-
-
-
-# celery implementation
-from .task import op_send_email
-def celeryTask(request):
-    op_send_email.delay()
-    return HttpResponse('Done')
