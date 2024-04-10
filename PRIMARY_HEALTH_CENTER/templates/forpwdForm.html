@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,15 +6,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Login Form</title>
-    <link rel="stylesheet" href="loginForm.css">
-    <link rel="stylesheet" href="RegistrationForm.css">
+    <title>Forgate password</title>
+    <link rel="stylesheet" href="{% static 'admin/css/loginForm.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/css/RegistrationForm.css' %}">
 </head>
 
 <body>
     <header>
         <div id="top">
-            <img class="headerimg" src="asset/image/navsymbol.png" alt="">
+            <img class="headerimg" src="{% static 'admin/img/navsymbol.png' %}" alt="logo">
             <div id="heading">
                 <div id="contentmain">
                     <a href="https://www.unicef.org/india/stories/know-your-childs-vaccination-schedule"
@@ -28,38 +29,33 @@
                     <h2>HEALTHY CHILD HEALTHY INDIA</h2>
                 </a>
             </div>
-            <img class="headerimg" src="asset/image/babyhand.png" alt="logo">
+            <!-- <img class="headerimg" src="static/admin/img/babyhand.png" alt="logo"> -->
+            <img class="headerimg" src="{% static 'admin/img/babyhand.png' %}" alt="logo">
         </div>
         <nav id="navbar">
             <div id="navimg">
-                <a href="homepage.html"><i class="fa-solid fa-house"></i></a>
+                <a href="/"><i class="fa-solid fa-house"></i></a>
             </div>
             <div id="home" class="ul">
                 <ul>
-                    <li><a href="homepage.html">Home</a></li>
-                    <li><a href="">About Us</a></li>
-                    <li><a href="">Contact Us</a></li>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/aboutUs">About Us</a></li>
+                    <li><a href="/contactUs">Contact Us</a></li>
                 </ul>
             </div>
         </nav>
     </header>
     <main id="container">
-        <form action="" class="separate" method="post">
+        <form action="/forpwd/" class="separate" method="post">
+            {% csrf_token %}
             <div class="sep1">
-                <h2>USER LOGIN</h2>
+                <h2>FORGOT PASSWORD</h2>
             </div>
             <div class="sep1" >
-                <input type="text" id="userid" class="sep2" name="userId" autocomplete="off" placeholder="ENTER USER ID">
-            </div>
-            <div class="sep1">
-                <input type="password" id="password" class="sep2" name="password" autocomplete="off"
-                    placeholder="ENTER PASSWORD">
+                <input type="text" id="adminid" class="sep2" name="id" autocomplete="off" placeholder="ENTER YOUR ID" required>
             </div>
             <div id="login">
-                <input type="submit" value="Login">
-            </div>
-            <div class="sep1" id="forpwd">
-                <a href="userForpwdForm.html">FORGOT PASSWORD ?</a>
+                <input type="submit">
             </div>
         </form>
     </main>

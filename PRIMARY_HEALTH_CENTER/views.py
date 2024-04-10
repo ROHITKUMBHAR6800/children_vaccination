@@ -1,24 +1,22 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse,JsonResponse
 from django.template import loader
-
-# Create your views here.
 from random import randint
-from django.http import JsonResponse
 from django.core.mail import send_mail
 import PRIMARY_HEALTH_CENTER
-
 from PRIMARY_HEALTH_CENTER.models import *
 from datetime import datetime,date
 from dateutil.relativedelta import relativedelta
 from django.db.models import Q
-# from CHILD_VACCINATION.celery import add
+
+# Create your views here.
 
 def otp():
-    otp=""
-    for i in range(4):
-        ch=randint(0,9)
-        otp+=str(ch)
+    # otp=""
+    # for i in range(4):
+    #     ch=randint(0,9)
+    #     otp+=str(ch)
+    otp=str(randint(100000,999999))
     return otp
 
 
@@ -64,27 +62,28 @@ def outputSendMail(emailId,output):
               [emailId])
       
 
-def homepage(request):
-    template=loader.get_template('homepage.html')
-    return HttpResponse(request,template.render())
+def homePage(request):
+    return render(request, 'homepage.html')
+
+def contactUsPage(request):
+    return render(request, 'contactUs.html')
+
+def aboutUsPage(request):
+    return render(request, 'aboutUs.html')
+
+def adminLoginForm(request):
+    return render(request, 'adminLoginForm.html')
+
+def adminRegistrationForm(request):
+    return render(request, 'adminRegistrationForm.html')
+
+def forgetPasswordForm(request):
+    return render(request, 'forpwdForm.html')
+
+def userLoginForm(request):
+    return render(request, 'userLoginForm.html')
 
 
-# def admin_login_form(request):
-#     template=loader.get_template('adminLoginForm.html')
-#     return HttpResponse(template.render())
-
-# def admin_login_form(request):
-#     template=loader.get_template('adminLoginForm.html')
-#     return render(request, 'adminLoginForm.html')
-
-
-# def index(request):
-#     print("Results: ")
-#     # Enqueue Task using desplay()
-#     result1= add.delay(10,20)
-#     print("result 1: ",result1)
-#     # template=loader.get_template('index.html')
-#     return render(request,'index.html')
 
 def admin_registration(request):
     mail=request.POST.get("email")
@@ -116,7 +115,8 @@ def admin_registration(request):
     adminRefVar.save()
     data=Admin.objects.get(email=mail)
     outputSendMail(mail,data.admin_id)
-    return JsonResponse("profile created successfully",safe=False)
+    # return JsonResponse("profile created successfully",safe=False)
+    return render(request,'testpage.html')
 
 
 def user_registration(request):
@@ -313,7 +313,8 @@ def forgot_password(request):
         data.password=pwd
         data.save()
         outputSendMail(data.email,pwd)
-        return JsonResponse('your password have sent to registerd email id',safe=False)
+        message='your password have sent to registerd email id'
+        return render(request,'testpage.html')
     except PRIMARY_HEALTH_CENTER.models.Users.DoesNotExist:
         try:
             data=Admin.objects.get(admin_id=id)
@@ -321,9 +322,11 @@ def forgot_password(request):
             data.password=pwd
             data.save()
             outputSendMail(data.email,pwd)
-            return JsonResponse('your password sent to registerd email id',safe=False)
+            message='your password have sent to registerd email id'
+            return render(request,'testpage.html')
         except PRIMARY_HEALTH_CENTER.models.Admin.DoesNotExist:
-            return JsonResponse("invalid id entered", safe=False)
+            message='invalid credentials'
+            return render(request,'testpage.html')
         
         
 def change_password(request):

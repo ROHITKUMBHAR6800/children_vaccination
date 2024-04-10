@@ -7,13 +7,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Child Vaccination Home Page</title>
-    <link rel="stylesheet" href="{% static 'admin\css\homepage.css' %}">
+    <!-- <link rel="stylesheet" href="{%static 'admin/css/homepage.css' %}"> -->
+    <!-- <link rel="stylesheet" href="static/admin/css/homepage.css"> -->
+    <link rel="stylesheet" href="{% static 'admin/css/homepage.css' %}">
 </head>
 
 <body>
     <header>
         <div id="top">
-            <img class="headerimg" src="asset/image/navsymbol.png" alt="">
+            <img class="headerimg" src="static/admin/img/navsymbol.png" alt="">
             <div id="heading">
                 <div id="contentmain">
                     <a href="https://www.unicef.org/india/stories/know-your-childs-vaccination-schedule"
@@ -24,11 +26,11 @@
                         <h1>IMMUNIZATION PROGRAMME</h1>
                     </a>
                 </div>
-                <a href="https://main.mohfw.gov.in/" target="_blank">
+                <a href="https://main.mohfw.gov.in" target="_blank">
                     <h2>HEALTHY CHILD HEALTHY INDIA</h2>
                 </a>
             </div>
-            <img class="headerimg" src="asset/image/babyhand.png" alt="logo">
+            <img class="headerimg" src="static/admin/img/babyhand.png" alt="logo">
         </div>
         <nav>
             <div id="navbar">
@@ -37,15 +39,15 @@
                 </div>
                 <div id="home" class="ul">
                     <ul>
-                        <li><a href="">Home</a></li>
-                        <li><a href=""> About Us</a></li>
-                        <li><a href="">Contact Us</a> </li>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/aboutUs"> About Us</a></li>
+                        <li><a href="/contactUs">Contact Us</a> </li>
                     </ul>
                 </div>
                 <div id="login" class="ul">
                     <ul>
-                        <li><a href="{% url 'admin_login' %}">ADMIN LOGIN</a> </li>
-                        <li><a href="userLoginForm.html"> USER LOGIN</a></li>
+                        <li><a href="/adminLoginForm">ADMIN LOGIN</a></li>
+                        <li><a href="/userLoginForm"> USER LOGIN</a></li>
                     </ul>
                 </div>
             </div>
@@ -59,23 +61,18 @@
                     healthcare professionals. Vaccines will involve some discomfort and may cause pain, redness, or
                     tenderness at the site of injection, but this is minimal compared to the pain, discomfort, and
                     trauma of the diseases these vaccines prevent. Serious side effects following vaccination, such
-                    as
-                    severe allergic reaction, are very rare. The disease-prevention benefits of getting vaccines are
+                    as severe allergic reaction, are very rare. The disease-prevention benefits of getting vaccines are
                     much greater than the possible side effects for almost all children.
                 </p>
                 <h2>Immunization protects future generations</h2>
                 <p> Vaccines have reduced and, in some cases, eliminated many diseases that killed or severely
-                    disabled
-                    people just a few generations ago. For example, smallpox vaccination eradicated that disease
+                    disabledpeople just a few generations ago. For example, smallpox vaccination eradicated that disease
                     worldwide. Your children don't have to get smallpox shots anymore because the disease no longer
                     exists. By vaccinating children against rubella (German measles), the risk that pregnant women
-                    will
-                    pass this virus on to their fetus or newborn has been dramatically decreased, and birth defects
+                    will pass this virus on to their fetus or newborn has been dramatically decreased, and birth defects
                     associated with that virus no longer are seen in the United States. If we continue vaccinating
-                    now,
-                    and vaccinating completely, parents in the future may be able to trust that some diseases of
-                    today
-                    will no longer be around to harm their children in the future.</p>
+                    now,and vaccinating completely, parents in the future may be able to trust that some diseases of
+                    today will no longer be around to harm their children in the future.</p>
             </div>
             <div id="Schedule">
                 <h2>Vaccination Schedule</h2>
@@ -154,7 +151,7 @@
                                 <td class="tdmulti">Tdap/ Td</td>
                             </tr>
                             <tr>
-                                <td class="tdmulti">2nd, 3rd, 4<sup>th</sup>,&nbsp;and 5th Year</td>
+                                <td class="tdmulti">2nd, 3rd, 4th and 5th Year</td>
                                 <td class="tdmulti">Annual Influenza Vaccine</td>
                             </tr>
                         </tbody>
@@ -183,64 +180,55 @@
                                 <td>BCG</td>
                                 <td>Tuberculosis</td>
                                 <td class="td1">Tuberculosis (TB) is an infection that most often attacks the lungs,
-                                    but&nbsp;in
-                                    infants and young children, affects other organs like the brain. A severe case could
-                                    cause serious complications or death.<br><br>
-                                    TB is very difficult to treat when contracted, and treatment is lengthy and not
+                                    but in infants and young children, affects other organs like the brain. A severe case could
+                                    cause serious complications or death.TB is very difficult to treat when contracted, and treatment is lengthy and not
                                     always successful.</td>
                             </tr>
                             <tr>
                                 <td>Hep B</td>
                                 <td>Hepatitis B</td>
                                 <td class="td1">Hepatitis B virus is a dangerous liver infection that, when caught as an
-                                    infant,
-                                    often shows no symptoms for decades. It can develop into cirrhosis and liver cancer
+                                    infant,often shows no symptoms for decades. It can develop into cirrhosis and liver cancer
                                     later in life.</td>
                             </tr>
                             <tr>
                                 <td>Polio</td>
                                 <td>Poliovirus</td>
                                 <td class="td1">Polio is a virus that paralyzes 1 in 200 people who get infected. Among
-                                    those cases,
-                                    5 to 10 per cent die when their breathing muscles are paralyzed. There is no cure
-                                    for polio once the paralysis sets in – only treatment to alleviate the symptoms.
+                                    those cases,5 to 10 per cent die when their breathing muscles are paralyzed. There is no cure
+                                    for polio once the paralysis sets in only treatment to alleviate the symptoms.
                                 </td>
                             </tr>
                             <tr>
                                 <td>DTP</td>
                                 <td>Diphtheria</td>
                                 <td class="td1">Diphtheria infects the throat and tonsils, making it hard for children
-                                    to breathe
-                                    and swallow.&nbsp;Severe cases can cause heart, kidney and/or nerve damage.</td>
+                                    to breathe and swallow.Severe cases can cause heart, kidney and/or nerve damage.</td>
                             </tr>
                             <tr>
                                 <td>DTP</td>
                                 <td>Tetanus</td>
                                 <td class="td1">Tetanus causes very painful muscle contractions. It can cause children’s
-                                    neck and
-                                    jaw muscles to lock (lockjaw), making it hard for them to open their mouth, swallow
-                                    (breastfeed) or breathe.&nbsp;Even with treatment, tetanus is often fatal.</td>
+                                    neck and jaw muscles to lock (lockjaw), making it hard for them to open their mouth, swallow
+                                    (breastfeed) or breathe.Even with treatment, tetanus is often fatal.</td>
                             </tr>
                             <tr>
                                 <td>DTP</td>
                                 <td>Pertussis</td>
                                 <td class="td1">Pertussis (whooping cough) causes coughing spells that can last for
-                                    weeks. In some
-                                    cases, it can lead to trouble breathing, pneumonia, and death.</td>
+                                    weeks. In some cases, it can lead to trouble breathing, pneumonia, and death.</td>
                             </tr>
                             <tr>
                                 <td>Hib</td>
                                 <td>Haemophilus influenza type b (Hib)</td>
                                 <td class="td1">Hib is a bacterium that causes pneumonia, meningitis and other severe
-                                    infections
-                                    almost exclusively in children under 5 years old.</td>
+                                    infections exclusively in children under 5 years old.</td>
                             </tr>
                             <tr>
                                 <td>Pneumococcal</td>
                                 <td>Pneumococcal diseases</td>
                                 <td class="td1">Pneumococcal diseases range from serious diseases such as meningitis and
-                                    pneumonia
-                                    to milder but more common infections like sinusitis and ear infections.<br><br>
+                                    pneumonia to milder but more common infections like sinusitis and ear infections.
                                     Pneumococcal diseases are a common cause of sickness and death worldwide, especially
                                     among young children under 2 years old.</td>
                             </tr>
@@ -248,38 +236,32 @@
                                 <td>Rotavirus</td>
                                 <td>Rotavirus</td>
                                 <td class="td1">Rotaviruses cause severe diarrhoea and vomiting, which can lead to
-                                    dehydration,
-                                    electrolyte imbalance and shock in young children.&nbsp;This can lead to death if
+                                    dehydration,electrolyte imbalance and shock in young children.This can lead to death if
                                     treatment, especially fluid replacement, is not immediately started.</td>
                             </tr>
                             <tr>
                                 <td>MMR</td>
                                 <td>Measles</td>
                                 <td class="td1">Measles is a highly contagious disease with symptoms that include fever,
-                                    runny nose,
-                                    white spots in the back of the mouth and a rash. Serious cases can cause blindness,
+                                    runny nose, white spots in the back of the mouth and a rash. Serious cases can cause blindness,
                                     brain swelling and death.</td>
                             </tr>
                             <tr>
                                 <td>MMR</td>
                                 <td>Mumps</td>
                                 <td class="td1">Mumps can cause headache, malaise, fever, and swollen salivary glands.
-                                    Complications
-                                    can include meningitis, swollen testicles and deafness.</td>
+                                    Complications can include meningitis, swollen testicles and deafness.</td>
                             </tr>
                             <tr>
                                 <td>MMR</td>
                                 <td>Rubella</td>
                                 <td class="td1">Rubella infection in children and adults is usually mild, but in
-                                    pregnant women it
-                                    can cause miscarriage, stillbirth, infant death or birth defects.</td>
+                                    pregnant women it can cause miscarriage, stillbirth, infant death or birth defects.</td>
                             </tr>
                             <tr>
                                 <td>HPV</td>
                                 <td>Human papillomavirus (HPV)</td>
-                                <td class="td1">HPV usually has no symptoms, but some strains can cause cervical cancer
-                                    – the fourth
-                                    most common cancer in women. Almost all cases of cervical cancer (99 per cent) are
+                                <td class="td1">HPV usually has no symptoms, but some strains can cause cervical cancer the fourthmost common cancer in women. Almost all cases of cervical cancer (99 per cent) are
                                     caused by HPV. HPV can also cause genital warts in both men and women, as well as
                                     cancer on other parts of the body.</td>
                             </tr>
