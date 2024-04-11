@@ -84,6 +84,7 @@ class Child(models.Model):
     state = models.CharField(max_length=50)
     email_verify = models.CharField(max_length=10,default='unverified')
     otp = models.CharField(max_length=6) 
+    
 
 class ChildVaccination(models.Model):
     child = models.ForeignKey(Child,on_delete=models.CASCADE)
