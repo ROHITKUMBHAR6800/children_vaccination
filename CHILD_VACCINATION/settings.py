@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -153,19 +153,21 @@ STATICFILES_DIRS = [
 EMAIL_HOST="smtp.gmail.com"
 EMAIL_PORT="465"
 EMAIL_HOST_USER="phchol06082001@gmail.com"
-EMAIL_HOST_PASSWORD=""
+EMAIL_HOST_PASSWORD="mgvvhcdnhgvvsdym"
 EMAIL_USE_SSL=True
-
+DEFAULT_FROM_EMAIL = 'No-Replay <phchol06082001@gmail.com>'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
 #  Celery Settings
+
 CELERY_BROKER_URL ="redis://127.0.0.1:6379"
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_TIMEZONE = "Asia/Kolkata"
 
+# celery database settings
 CELERY_RESULT_BACKEND = 'django-db'
 
 #CELERY BEAT SETTINGS

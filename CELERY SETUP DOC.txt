@@ -1,6 +1,6 @@
 commands:
 	# celery logs
-		>>  celery -A CHILED_VACCINATION  worker --pool=solo -l info
+		>>  celery -A CHILD_VACCINATION  worker --pool=solo -l info
 	# celery beat log
 		>> celery -A CHILD_VACCINATION beat -l INFO
 

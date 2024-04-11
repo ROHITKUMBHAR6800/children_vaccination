@@ -37,5 +37,4 @@ urlpatterns = [
     path('delUser/',views.delete_user,name='delUser'),
     path('delChild/',views.delete_child,name='delChild'),
     path('updChild/',views.update_child,name='updChild'),
-    path('celeryTask/',views.celeryTask,name='celeryTask'),
 ]

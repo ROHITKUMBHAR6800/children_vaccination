@@ -13,6 +13,8 @@ class Admin(models.Model):
     district = models.CharField(max_length=100)
     state = models.CharField(max_length=50)
     password = models.CharField(max_length=50)
+    email_verify = models.CharField(max_length=10,default='unverified')
+    otp = models.CharField(max_length=6) 
 
     def save(self):
         if not self.admin_id:
@@ -45,6 +47,8 @@ class Users(models.Model):
     district = models.CharField(max_length=100)
     state = models.CharField(max_length=50)
     password = models.CharField(max_length=50)
+    email_verify = models.CharField(max_length=10,default='unverified')
+    otp = models.CharField(max_length=6) 
 
     def save(self):
         if not self.user_id:
@@ -78,6 +82,9 @@ class Child(models.Model):
     tehsil = models.CharField(max_length=100)
     district = models.CharField(max_length=100)
     state = models.CharField(max_length=50)
+    email_verify = models.CharField(max_length=10,default='unverified')
+    otp = models.CharField(max_length=6) 
+    
 
 class ChildVaccination(models.Model):
     child = models.ForeignKey(Child,on_delete=models.CASCADE)
