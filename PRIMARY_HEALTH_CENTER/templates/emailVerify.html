@@ -12,7 +12,7 @@
 <body>
     <header>
         <div id="top">
-            <img class="headerimg" src="static/admin/img/navsymbol.png" alt="">
+            <img class="headerimg" src="{% static 'admin/img/navsymbol.png' %}" alt="">
             <div id="heading">
                 <div id="contentmain">
                     <a href="https://www.unicef.org/india/stories/know-your-childs-vaccination-schedule"
@@ -27,7 +27,7 @@
                     <h2>HEALTHY CHILD HEALTHY INDIA</h2>
                 </a>
             </div>
-            <img class="headerimg" src="static/admin/img/babyhand.png" alt="logo">
+            <img class="headerimg" src="{% static 'admin/img/babyhand.png' %}" alt="logo">
         </div>
         <nav id="navbar">
             <div id="navimg">
@@ -43,13 +43,13 @@
         </nav>
     </header>
     <main id="container">
-        <form action="/forpwd/" class="separate" method="post">
+        <form action="/emailVerify/" class="separate" method="post">
             {% csrf_token %}
             <div class="sep1">
                 <h2>Email Verification</h2>
             </div>
             <div class="sep1" >
-                <input type="email" id="eamil" class="sep2" name="eamil" autocomplete="off" placeholder="ENTER YOUR EMAIL ID" required>
+                <input type="email" id="eamil" class="sep2" name="email" autocomplete="off" placeholder="ENTER YOUR EMAIL ID" required>
             </div>
             <div class="sep1" >
                 <input type="text" id="otp" class="sep2" name="otp" autocomplete="off" placeholder="ENTER OTP" required>

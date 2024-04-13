@@ -25,6 +25,7 @@ urlpatterns = [
     path('aboutUs/',views.aboutUsPage, name='aboutUs'),
     path('adminLoginForm/', views.adminLoginForm, name='adminLoginForm'),
     path('adminRegistrationForm/', views.adminRegistrationForm, name='adminRegistrationForm'),
+    path('emailVerify/',views.verify_email, name='emailVerify'),
     path('forpwdForm/', views.forgetPasswordForm, name='forpwdForm'),
     path('userLoginForm/', views.userLoginForm, name='userLoginForm'),
     # path('""/adminLoginForm/', views.admin_login_form),

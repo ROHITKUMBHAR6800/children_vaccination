@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse,JsonResponse
 from random import randint
 from django.core.mail import send_mail
@@ -197,6 +197,49 @@ def child_registration(request):
     else:
         return JsonResponse("invalid method",safe = False)
 
+def verify_email(request):
+    if request.method == 'POST':
+        mail = request.POST.get("email")
+        ot = request.POST.get("otp")
+        try:
+            data=Child.objects.get(email=mail,email_verify="unverified")
+            if data.otp==ot:
+                data.email_verify = 'verified'
+                data.save()
+                sub="REGISTRATION SUCCESSFUL"
+                mes =f"You are registered successfully and your id is {data.child_id}."
+                send_updates(mail,sub,mes)
+                return JsonResponse("Your registration is successfull",safe=False)
+            else:
+                return JsonResponse("invalid otp",safe=False)
+        except PRIMARY_HEALTH_CENTER.models.Child.DoesNotExist:
+            try:
+                data=Users.objects.get(email=mail,email_verify="unverified")
+                if data.otp==ot:
+                    data.email_verify = 'verified'
+                    data.save()
+                    sub="REGISTRATION SUCCESSFUL"
+                    mes =f"You are registered successfully and your id is {data.user_id}. Please do not share your id and password to anyone."
+                    send_updates(mail,sub,mes)
+                    return JsonResponse("Your registration is successfull",safe=False)
+                else:
+                    return JsonResponse("invalid otp",safe=False)
+            except PRIMARY_HEALTH_CENTER.models.Users.DoesNotExist:
+                try:
+                    data=Admin.objects.get(email=mail,email_verify="unverified")
+                    if data.otp==ot:
+                        data.email_verify = 'verified'
+                        data.save()
+                        sub="REGISTRATION SUCCESSFUL"
+                        mes =f"You are registered successfully and your id is {data.admin_id}. Please do not share your id and password to anyone."
+                        send_updates(mail,sub,mes)
+                        return JsonResponse("Your registration is successfull",safe=False)
+                    else:
+                        return JsonResponse("invalid otp",safe=False)
+                except PRIMARY_HEALTH_CENTER.models.Admin.DoesNotExist:
+                    return JsonResponse("invalid email", safe=False)
+    else:
+        return JsonResponse("invalid method",safe = False)  
 
 
 def update_child(request):
@@ -333,3 +376,10 @@ def change_password(request):
         return JsonResponse("invalid method",safe = False)
 
 
+def admin_page(request):
+    if request.method != "POST":
+        return JsonResponse("invalid method",safe=False)
+    id = request.POST.get("adminId")
+    pwd = request.POST.get("password")
+    
+    
