@@ -1,14 +1,15 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Verification</title>
-    <link rel="stylesheet" href="{% static 'admin/css/loginForm.css' %}">
-    <link rel="stylesheet" href="{% static 'admin/css/RegistrationForm.css' %}">
+    <title>Admin Page</title>
+    <link rel="stylesheet" href="{% static 'admin/css/homepage.css' %}">
 </head>
+
 <body>
     <header>
         <div id="top">
@@ -31,33 +32,53 @@
         </div>
         <nav id="navbar">
             <div id="navimg">
-                <a href="/"><i class="fa-solid fa-house"></i></a>
+                <a href="/ "><i class="fa-solid fa-house"></i></a>
             </div>
             <div id="home" class="ul">
                 <ul>
-                    <li><a href="/">Home</a></li>
+                    <li><a href="/ ">Home</a></li>
                     <li><a href="/aboutUs">About Us</a></li>
                     <li><a href="/contactUs">Contact Us</a></li>
                 </ul>
             </div>
         </nav>
     </header>
-    <main id="container">
-        <form action="/emailVerify/" class="separate" method="post">
-            {% csrf_token %}
-            <div class="sep1">
-                <h2>Email Verification</h2>
+    <main>
+        <div id="divider">
+            <div id="side-containt">
+                <div class="head-title">
+                    <h3>ADMIN</h3>
+                    <i class="fas fa-plus-circle"></i>
+                </div>
+                <div class="head-body">                    
+                    <button>CHANGE PASSWORD</button>
+                    <button>UPDATE INFO</button>
+                    <button>LOG-OUT</button>
+                </div>
+                <div class="head-title">
+                    <h3>USERS</h3>
+                    <i class="fas fa-plus-circle"></i>
+                </div>
+                <div class="head-body">                    
+                    <button>ADD USER</button>
+                    <button>UPDATE USER</button>
+                    <button>DELETE USER</button>
+                </div>
+                <div class="head-title">
+                    <h3>CHILDREN</h3>
+                    <i class="fas fa-plus-circle"></i>
+                </div>
+                <div class="head-body">                    
+                    <button>ADD CHILDREN</button>
+                    <button>UPDATE CHILDREN</button>
+                    <button>DELETE CHILDREN</button>
+                </div>
             </div>
-            <div class="sep1" >
-                <input type="email" id="eamil" class="sep2" name="email" autocomplete="off" placeholder="ENTER YOUR EMAIL ID" required>
+            <div id="main-containt">
+
             </div>
-            <div class="sep1" >
-                <input type="text" id="otp" class="sep2" name="otp" autocomplete="off" placeholder="ENTER OTP" required>
-            </div>
-            <div id="login">
-                <input type="submit" value="VERIFY OTP">
-            </div>
-        </form>
+        </div>
     </main>
 </body>
+
 </html>

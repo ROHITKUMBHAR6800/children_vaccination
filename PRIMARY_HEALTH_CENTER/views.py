@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse,JsonResponse
 from random import randint
 from django.core.mail import send_mail
@@ -8,6 +8,9 @@ from django.db.models import Q
 from smtplib import SMTPException, SMTPRecipientsRefused
 from CHILD_VACCINATION import settings
 from PRIMARY_HEALTH_CENTER.tasks import insertIntoChildVaccModel,send_updates
+from django.utils import timezone
+from datetime import datetime,date
+from dateutil.relativedelta import relativedelta
 
 # Create your views here.
 
@@ -198,6 +201,50 @@ def child_registration(request):
         return JsonResponse("invalid method",safe = False)
 
 
+def verify_email(request):
+    if request.method == 'POST':
+        mail = request.POST.get("email")
+        ot = request.POST.get("otp")
+        try:
+            data=Child.objects.get(email=mail,email_verify="unverified")
+            if data.otp==ot:
+                data.email_verify = 'verified'
+                data.save()
+                sub="REGISTRATION SUCCESSFUL"
+                mes =f"You are registered successfully and your id is {data.child_id}."
+                send_updates(mail,sub,mes)
+                return JsonResponse("Your registration is successfull",safe=False)
+            else:
+                return JsonResponse("invalid otp",safe=False)
+        except PRIMARY_HEALTH_CENTER.models.Child.DoesNotExist:
+            try:
+                data=Users.objects.get(email=mail,email_verify="unverified")
+                if data.otp==ot:
+                    data.email_verify = 'verified'
+                    data.save()
+                    sub="REGISTRATION SUCCESSFUL"
+                    mes =f"You are registered successfully and your id is {data.user_id}. Please do not share your id and password to anyone."
+                    send_updates(mail,sub,mes)
+                    return JsonResponse("Your registration is successfull",safe=False)
+                else:
+                    return JsonResponse("invalid otp",safe=False)
+            except PRIMARY_HEALTH_CENTER.models.Users.DoesNotExist:
+                try:
+                    data=Admin.objects.get(email=mail,email_verify="unverified")
+                    if data.otp==ot:
+                        data.email_verify = 'verified'
+                        data.save()
+                        sub="REGISTRATION SUCCESSFUL"
+                        mes =f"You are registered successfully and your id is {data.admin_id}. Please do not share your id and password to anyone."
+                        send_updates(mail,sub,mes)
+                        return JsonResponse("Your registration is successfull",safe=False)
+                    else:
+                        return JsonResponse("invalid otp",safe=False)
+                except PRIMARY_HEALTH_CENTER.models.Admin.DoesNotExist:
+                    return JsonResponse("invalid email", safe=False)
+    else:
+        return JsonResponse("invalid method",safe = False)  
+
 
 def update_child(request):
     if request.method == 'POST':
@@ -333,3 +380,186 @@ def change_password(request):
         return JsonResponse("invalid method",safe = False)
 
 
+def admin_page(request):
+    if request.method != "POST":
+        return JsonResponse("invalid method",safe=False)
+    adminId = request.POST.get("adminId")
+    pwd = request.POST.get("password")
+    try:
+        admin_data=Admin.objects.get(admin_id=adminId,password=pwd)
+        hospital_name=admin_data.hospital_name
+        hospital_add=f"{admin_data.area_add}, {admin_data.village_town}, Tehsil-{admin_data.tehsil}, District-{admin_data.district}, State-{admin_data.state}, India."
+        users_object=Users.objects.filter(admin_id=admin_data.admin_id)
+        user_data={}
+        for user in users_object:
+            user_data[user.user_id]=userData(user)
+        users_count=len(users_object)
+        all_children_object=[]
+        user_children_object={}
+        if users_count>0:
+            if len(Child.objects.filter(register_by=adminId))>0:
+                user_children_object[admin_data] =(Child.objects.filter(register_by=admin_data.admin_id))
+            for user in users_object:
+                all_children_object.extend(Child.objects.filter(register_by=user.user_id))
+                user_children_object[user] =(Child.objects.filter(register_by=user.user_id))
+            if len(Child.objects.filter(register_by=adminId))>0:
+                all_children_object.extend(Child.objects.filter(register_by=admin_data.admin_id))
+        children_count=len(all_children_object)
+        admin_data={"admin":(adminId,hospital_name,hospital_add),"userCount":users_count,"childCount":children_count,"usersInfo":user_data}
+        return JsonResponse(admin_data)
+    except PRIMARY_HEALTH_CENTER.models.Admin.DoesNotExist:
+        return JsonResponse("invalid credintials",safe=False)
+    
+
+def user_page(request):
+    if request.method != "POST":
+        return JsonResponse("invalid method", safe=False)
+    userId = request.POST.get("userId")
+    pwd = request.POST.get("password")
+    try:
+        user_data=Users.objects.get(user_id=userId, password=pwd)
+        data=userData(user_data)
+        return JsonResponse(data)
+    except PRIMARY_HEALTH_CENTER.models.Users.DoesNotExist:
+        return JsonResponse("invalid credintials",safe=False)
+    
+def userData(user_data):
+        admin_data=Admin.objects.get(admin_id=user_data.admin_id)
+        user_name=f"{user_data.user_name} {user_data.middle_name} {user_data.surname}."
+        hospital_name=admin_data.hospital_name
+        hospital_add=f"{admin_data.area_add}, {admin_data.village_town}, Tehsil-{admin_data.tehsil}, District-{admin_data.district}, State-{admin_data.state}, India."
+        children_object=Child.objects.filter(register_by=user_data.user_id)
+        children_count=len(children_object)
+
+        def queryset_to_dict_list(queryset):
+            return [obj.child_id for obj in queryset]
+        
+        # Filter the Child records based on ChildVaccination records where vaccination_1month contains matching data
+        months_wise_remain=give_vacc_remain_data(children_object)
+
+        totalRemainCount=0
+        totalRemainData={}
+        for key,value in months_wise_remain.items():
+            totalRemainData[key]=queryset_to_dict_list(value)
+            totalRemainCount+=len(value)
+        
+        # Get today's date
+        endDate = datetime.today()
+        # Calculate start date by subtracting one month from today's date
+        startDate = endDate - relativedelta(months=1)
+        # This will always show vaccination done data within one month
+        months_wise_done=give_vacc_done_data(children_object,startDate,endDate)
+
+        totalDoneCount=0
+        totalDoneData={}
+        for key,value in months_wise_done.items():
+            totalDoneData[key]=queryset_to_dict_list(value)
+            totalDoneCount=len(value)
+        data={"user":(user_name,hospital_name,hospital_add),"childcount":children_count,"totalDone":totalDoneCount,"totalRemain":totalRemainCount,"doneData":totalDoneData,"remainData":totalRemainData}
+        return data
+    
+
+def give_vacc_remain_data(children_object):
+    # Filter the Child records based on ChildVaccination records where vaccination_1month contains matching data
+    months_wise_remain={}
+    months_wise_remain['month1_vacc_remain'] = children_object.filter(childvaccination__vaccination_1month = 'remaining')
+    months_wise_remain['month2_vacc_remain'] = children_object.filter(childvaccination__vaccination_2month = 'remaining')
+    months_wise_remain['month3_vacc_remain'] = children_object.filter(childvaccination__vaccination_3month = 'remaining')
+    months_wise_remain['month6_vacc_remain'] = children_object.filter(childvaccination__vaccination_6month = 'remaining')
+    months_wise_remain['month7_vacc_remain'] = children_object.filter(childvaccination__vaccination_7month = 'remaining')
+    months_wise_remain['month8_vacc_remain'] = children_object.filter(childvaccination__vaccination_8month = 'remaining')
+    months_wise_remain['month9_vacc_remain'] = children_object.filter(childvaccination__vaccination_9month = 'remaining')
+    months_wise_remain['month12_vacc_remain'] = children_object.filter(childvaccination__vaccination_12month = 'remaining')
+    months_wise_remain['month15_vacc_remain'] = children_object.filter(childvaccination__vaccination_15month = 'remaining')
+    months_wise_remain['month18_vacc_remain'] = children_object.filter(childvaccination__vaccination_18month = 'remaining')
+    months_wise_remain['month24_vacc_remain'] = children_object.filter(childvaccination__vaccination_24month = 'remaining')
+    months_wise_remain['month36_vacc_remain'] = children_object.filter(childvaccination__vaccination_36month = 'remaining')
+    months_wise_remain['month48_vacc_remain'] = children_object.filter(childvaccination__vaccination_48month = 'remaining')
+    months_wise_remain['month60_vacc_remain'] = children_object.filter(childvaccination__vaccination_60month = 'remaining')
+    return months_wise_remain
+    
+
+def give_vacc_done_data(children_object,startDate,endDate):
+    months_wise_done={}
+    months_wise_done['month1_vacc_done'] = children_object.filter(childvaccination__vaccination_1month__range=(startDate, endDate))
+    months_wise_done['month2_vacc_done'] = children_object.filter(childvaccination__vaccination_2month__range=(startDate, endDate))
+    months_wise_done['month3_vacc_done'] = children_object.filter(childvaccination__vaccination_3month__range=(startDate, endDate))
+    months_wise_done['month6_vacc_done'] = children_object.filter(childvaccination__vaccination_6month__range=(startDate, endDate))
+    months_wise_done['month7_vacc_done'] = children_object.filter(childvaccination__vaccination_7month__range=(startDate, endDate))
+    months_wise_done['month8_vacc_done'] = children_object.filter(childvaccination__vaccination_8month__range=(startDate, endDate))
+    months_wise_done['month9_vacc_done'] = children_object.filter(childvaccination__vaccination_9month__range=(startDate, endDate))
+    months_wise_done['month12_vacc_done'] = children_object.filter(childvaccination__vaccination_12month__range=(startDate, endDate))
+    months_wise_done['month15_vacc_done'] = children_object.filter(childvaccination__vaccination_15month__range=(startDate, endDate))
+    months_wise_done['month18_vacc_done'] = children_object.filter(childvaccination__vaccination_18month__range=(startDate, endDate))
+    months_wise_done['month24_vacc_done'] = children_object.filter(childvaccination__vaccination_24month__range=(startDate, endDate))
+    months_wise_done['month36_vacc_done'] = children_object.filter(childvaccination__vaccination_36month__range=(startDate, endDate))
+    months_wise_done['month48_vacc_done'] = children_object.filter(childvaccination__vaccination_48month__range=(startDate, endDate))
+    months_wise_done['month60_vacc_done'] = children_object.filter(childvaccination__vaccination_60month__range=(startDate, endDate))
+    return months_wise_done
+    
+    
+def vacc_remind_again(request):
+    if request.method != "POST":
+        return JsonResponse("invalid method",safe=False)
+    childId=request.POST.get(childId)
+    try:
+        data=Child.objects.get(child_id=childId)
+        sub="VACCINATE CHILD ON TIME"
+        mes ="Your child vaccination still remaining please visit your nearest PRIMARY HEALTH CENTER for vaccination within two days"
+        send_updates(data.email,sub,mes)
+    except PRIMARY_HEALTH_CENTER.models.Child.DoesNotExist:
+        return JsonResponse("invalid registerby id or Child Id", safe=False)
+    
+    
+def vacc_done(request):
+    if request.method != "POST":
+        return JsonResponse("Invalid method", safe=False)
+    childId = request.POST.get('childId')
+    try:
+        data = ChildVaccination.objects.get(child_id=childId)
+        remaining_vaccination_fields = ['vaccination_1month', 
+                                        'vaccination_2month', 
+                                        'vaccination_3month', 
+                                        'vaccination_6month', 
+                                        'vaccination_7month', 
+                                        'vaccination_8month', 
+                                        'vaccination_9month', 
+                                        'vaccination_12month', 
+                                        'vaccination_15month', 
+                                        'vaccination_18month', 
+                                        'vaccination_24month', 
+                                        'vaccination_36month', 
+                                        'vaccination_48month', 
+                                        'vaccination_60month'
+                                    ]
+        current_time = datetime.now()
+        for field in remaining_vaccination_fields:
+            if getattr(data, field) == "remaining":
+                setattr(data, field, current_time)
+        data.save()
+        return JsonResponse("Vaccination done", safe=False)
+    except ChildVaccination.DoesNotExist:
+        return JsonResponse("Invalid registerby id or Child Id", safe=False)
+
+
+def search_vacc_done(request):
+    id=request.POST.get("id")
+    startDate=request.POST.get("startDate")
+    endDate=request.POST.get("endDate")
+    try:
+        children_object=Child.objects.filter(register_by=id)
+
+        # Convert the endDate string to a datetime object
+        endDate_strp = datetime.strptime(endDate, '%Y-%m-%d')
+
+        # Add one day to endDate using relativedelta and convert it to a string
+        newEndDate = (endDate_strp + relativedelta(days=1)).strftime('%Y-%m-%d')
+        months_wise_done=give_vacc_done_data(children_object,startDate,newEndDate)
+
+        sum1=0
+        for item in months_wise_done:
+            data=months_wise_done[item]
+            sum1+=len(data)
+        return JsonResponse(f"{sum1}",safe=False)
+    except PRIMARY_HEALTH_CENTER.models.Users.DoesNotExist:
+        return JsonResponse("invalid registerby id or Child Id", safe=False)

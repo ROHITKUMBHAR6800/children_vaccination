@@ -21,7 +21,7 @@ app.autodiscover_tasks(lambda:settings.INSTALLED_APPS)
 app.conf.beat_schedule = {
     'VACCINATION-REMINDER-DAILY-NOTIFICATION-MAIL' :{
         'task': 'PRIMARY_HEALTH_CENTER.tasks.vaccination_notification',
-        'schedule' : crontab(hour=0, minute=1)
+        'schedule' : crontab(hour=00, minute=00)
     }
 }
 
