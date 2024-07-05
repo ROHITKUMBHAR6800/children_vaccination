@@ -388,7 +388,11 @@ def admin_page(request):
     try:
         admin_data=Admin.objects.get(admin_id=adminId,password=pwd)
         hospital_name=admin_data.hospital_name
+        hospital_add=f"{admin_data.area_add}, {admin_data.village_town}, Tehsil-{admin_data.tehsil}, District-{admin_data.district}, State-{admin_data.state}, India."
         users_object=Users.objects.filter(admin_id=admin_data.admin_id)
+        user_data={}
+        for user in users_object:
+            user_data[user.user_id]=userData(user)
         users_count=len(users_object)
         all_children_object=[]
         user_children_object={}
@@ -401,6 +405,8 @@ def admin_page(request):
             if len(Child.objects.filter(register_by=adminId))>0:
                 all_children_object.extend(Child.objects.filter(register_by=admin_data.admin_id))
         children_count=len(all_children_object)
+        admin_data={"admin":(adminId,hospital_name,hospital_add),"userCount":users_count,"childCount":children_count,"usersInfo":user_data}
+        return JsonResponse(admin_data)
     except PRIMARY_HEALTH_CENTER.models.Admin.DoesNotExist:
         return JsonResponse("invalid credintials",safe=False)
     
@@ -412,6 +418,12 @@ def user_page(request):
     pwd = request.POST.get("password")
     try:
         user_data=Users.objects.get(user_id=userId, password=pwd)
+        data=userData(user_data)
+        return JsonResponse(data)
+    except PRIMARY_HEALTH_CENTER.models.Users.DoesNotExist:
+        return JsonResponse("invalid credintials",safe=False)
+    
+def userData(user_data):
         admin_data=Admin.objects.get(admin_id=user_data.admin_id)
         user_name=f"{user_data.user_name} {user_data.middle_name} {user_data.surname}."
         hospital_name=admin_data.hospital_name
@@ -419,13 +431,17 @@ def user_page(request):
         children_object=Child.objects.filter(register_by=user_data.user_id)
         children_count=len(children_object)
 
+        def queryset_to_dict_list(queryset):
+            return [obj.child_id for obj in queryset]
+        
         # Filter the Child records based on ChildVaccination records where vaccination_1month contains matching data
         months_wise_remain=give_vacc_remain_data(children_object)
 
-        sum=0
-        for item in months_wise_remain:
-            data=months_wise_remain[item]
-            sum+=len(data)
+        totalRemainCount=0
+        totalRemainData={}
+        for key,value in months_wise_remain.items():
+            totalRemainData[key]=queryset_to_dict_list(value)
+            totalRemainCount+=len(value)
         
         # Get today's date
         endDate = datetime.today()
@@ -434,13 +450,14 @@ def user_page(request):
         # This will always show vaccination done data within one month
         months_wise_done=give_vacc_done_data(children_object,startDate,endDate)
 
-        sum1=0
-        for item in months_wise_done:
-            data=months_wise_done[item]
-            sum1+=len(data)
-        return JsonResponse(f"{sum1}",safe=False)
-    except PRIMARY_HEALTH_CENTER.models.Users.DoesNotExist:
-        return JsonResponse("invalid credintials",safe=False)
+        totalDoneCount=0
+        totalDoneData={}
+        for key,value in months_wise_done.items():
+            totalDoneData[key]=queryset_to_dict_list(value)
+            totalDoneCount=len(value)
+        data={"user":(user_name,hospital_name,hospital_add),"childcount":children_count,"totalDone":totalDoneCount,"totalRemain":totalRemainCount,"doneData":totalDoneData,"remainData":totalRemainData}
+        return data
+    
 
 def give_vacc_remain_data(children_object):
     # Filter the Child records based on ChildVaccination records where vaccination_1month contains matching data

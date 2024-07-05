@@ -32,6 +32,7 @@ urlpatterns = [
     path('signupAdmin/',views.admin_registration,name='signupAdmin'),
     # path('loginAdmin/',views.admin_login),
     path('signupUser/',views.user_registration,name='signupUser'),
+    path('adminPage/',views.admin_page,name='admin_page'),
     path('userPage/',views.user_page,name='user_page'),
     path('signupChild/',views.child_registration,name='signupChild'),
     path('forpwd/',views.forgot_password,name='forpwd'),
