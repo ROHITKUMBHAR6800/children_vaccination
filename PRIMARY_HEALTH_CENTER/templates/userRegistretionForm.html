@@ -49,6 +49,7 @@
     </header>
     <main id="main">
         <form action="/signupUser/" method="post">
+            {% csrf_token %}
             <div id="HeadingOfForm">
                 <span>USER REGISTRATION FORM</span>
             </div>
@@ -153,12 +154,12 @@
                     <div class="">
                         <div class="pbm">
                             <label for="line4" class="pbm">PLOT/AREA:</label>
-                            <input type="text" id="line4" class="pbm1" name="home_add" value
+                            <input type="text" id="line4" class="pbm1" name="areaAdd" value
                                 placeholder="ENTER PLOT NO/STREET NAME/AREA" autocapitalize="on">
                         </div>
                         <div class="pbm">
                             <label for="line3" class="pbm">VILLEGE/TOWN:</label>
-                            <select name="village_town" id="line3" class="pbm1">
+                            <select name="villageTown" id="line3" class="pbm1">
                                 <option>select village/town</option>
                                 <option>hol</option>
                             </select>
@@ -182,7 +183,7 @@
                     </div>
                     <div class="pbm">
                         <label for="password" class="pbm">PASSWORD:</label>
-                        <input type="password" id="password" class="pbm1" name="password" autocomplete="off"
+                        <input type="password" id="password" class="pbm1" name="adminPassword" autocomplete="off"
                             placeholder="ENTER PASSWORD">
                     </div>
                 </div>

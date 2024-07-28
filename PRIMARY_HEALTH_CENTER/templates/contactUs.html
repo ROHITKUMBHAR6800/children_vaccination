@@ -1,14 +1,17 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us</title>
+    <link rel="stylesheet" href="{% static 'admin/css/homepage.css' %}">
 </head>
 <body>
     <header>
         <div id="top">
-            <img class="headerimg" src="static/admin/img/navsymbol.png" alt="">
+            <img class="headerimg" src="{% static 'admin/img/navsymbol.png' %}" alt="">
             <div id="heading">
                 <div id="contentmain">
                     <a href="https://www.unicef.org/india/stories/know-your-childs-vaccination-schedule"
@@ -23,20 +26,22 @@
                     <h2>HEALTHY CHILD HEALTHY INDIA</h2>
                 </a>
             </div>
-            <img class="headerimg" src="static/admin/img/babyhand.png" alt="logo">
+            <img class="headerimg" src="{% static 'admin/img/babyhand.png' %}" alt="logo">
         </div>
         <nav id="navbar">
             <div id="navimg">
-                <a href="/"><i class="fa-solid fa-house"></i></a>
+                <a href="/ "><i class="fa-solid fa-house"></i></a>
             </div>
             <div id="home" class="ul">
                 <ul>
-                    <li><a href="/">Home</a></li>
+                    <li><a href="/ ">Home</a></li>
                     <li><a href="/aboutUs">About Us</a></li>
                     <li><a href="/contactUs">Contact Us</a></li>
                 </ul>
             </div>
         </nav>
     </header>
+
+    <h1>Thank you for visiting.</h1>
 </body>
 </html>

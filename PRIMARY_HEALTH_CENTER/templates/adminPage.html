@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <link rel="stylesheet" href="{% static 'admin/css/homepage.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/css/adminPage.css' %}">
+</head>
+
+<body>
+    <header>
+        <div id="top">
+            <img class="headerimg" src="{% static 'admin/img/navsymbol.png' %}" alt="">
+            <div id="heading">
+                <div id="contentmain">
+                    <a href="https://www.unicef.org/india/stories/know-your-childs-vaccination-schedule"
+                        target="_blank">
+                        <h1>CHILD VACCINATION-</h1>
+                    </a>
+                    <a href="https://www.unicef.org/india/topics/immunization" target="_blank">
+                        <h1>IMMUNIZATION PROGRAMME</h1>
+                    </a>
+                </div>
+                <a href="https://main.mohfw.gov.in/" target="_blank">
+                    <h2>HEALTHY CHILD HEALTHY INDIA</h2>
+                </a>
+            </div>
+            <img class="headerimg" src="{% static 'admin/img/babyhand.png' %}" alt="logo">
+        </div>
+        <nav id="navbar">
+            <div id="navimg">
+                <a href="/ "><i class="fa-solid fa-house"></i></a>
+            </div>
+            <div id="home" class="ul">
+                <ul>
+                    <li><a href="/ ">Home</a></li>
+                    <li><a href="/aboutUs">About Us</a></li>
+                    <li><a href="/contactUs">Contact Us</a></li>
+                </ul>
+            </div>
+            <div id="login" class="ul">
+                <ul>
+                    <li><a href="/ ">LOG OUT</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div id="body-content">
+        <div id="side-content">
+            <div class="head-title">
+                <h3>ADMIN</h3>
+                <!-- <i class="fas fa-plus-circle"></i> -->
+            </div>
+            <div class="head-body">
+                <ul>
+                    <li><button><a href="/chanpwd">CHANGE PASSWORD</a></button></li>
+                    <li><button><a href="">UPDATE INFO</a></button></li>
+                    <li><button><a href="/ ">LOG OUT</a></button></li>
+                </ul>
+            </div>
+            <div class="head-title">
+                <h3>USERS</h3>
+                <!-- <i class="fas fa-plus-circle"></i> -->
+            </div>
+            <div class="head-body">
+                <ul>
+                    <li><button><a href="/userRegistrationForm">ADD USER</a></button></li>
+                    <li> <button><a href="">UPDATE USER</a></button></li>
+                    <li><button><a href="/delUser">DELETE USER</a></button></li>
+                </ul>
+            </div>
+            <div class="head-title">
+                <h3>CHILDREN</h3>
+                <!-- <i class="fas fa-plus-circle"></i> -->
+            </div>
+            <div class="head-body">
+                <ul>
+                    <li><button><a href="/childRegistrationForm">ADD CHILDREN</a></button></li>
+                    <li><button><a href="/updChild">UPDATE CHILDREN</a></button></li>
+                    <li><button><a href="/delChild">DELETE CHILDREN</a></button></li>
+                </ul>
+            </div>
+        </div>
+        <div id="main-containt">
+            <p><strong>Admin ID:</strong> {{ admin_id }}</p>
+            <p><strong>Hospital Name:</strong> {{ hospital_name }}</p>
+            <p><strong>Hospital Address:</strong> {{ hospital_add }}</p>
+            <p><strong>Total Users:</strong> {{ userCount }}</p>
+            <p><strong>Total Children:</strong> {{ childCount }}</p>
+
+            <h2>User Information</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>User Name</th>
+                        <th>Child Count</th>
+                        <th>Total Vaccinations Done</th>
+                        <th>Total Vaccinations Remaining</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user_id, user_info in usersInfo.items %}
+                    <tr>
+                        <td><a href="{% url 'user_detail' user_id %}">{{ user_id }}</a></td>
+                        <td><a href="{% url 'user_detail' user_id %}">{{ user_info.user_name }}</a></td>
+                        <td>{{ user_info.childCount }}</td>
+                        <td>{{ user_info.totalDone }}</td>
+                        <td>{{ user_info.totalRemain }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <h2>Children Information</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Register By</th>
+                        <th>Child ID</th>
+                        <th>Child NAME</th>
+                        <th>Child Address</th>
+                        <th>Contact No</th>
+                        <th>gender</th>
+                        <th><strong>Actions</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for child in childrenInfo %}
+                    <tr>
+                        <td>{{ child.register_by}}</td>
+                        <td><a href="{% url 'child_detail' child.child_id %}">{{ child.child_id }}</a></td>
+                        <td>{{ child.child_name}}<span> </span>{{ child.father_name}}<span> </span>{{ child.surname}}
+                        </td>
+                        <td>{{ child.home_add}},{{child.village}}</td>
+                        <td>{{ child.mobile_no}}</td>
+                        <td>{{ child.gender}}</td>
+                        <th>
+                            <form action="{% url 'vaccDone' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="childId" value="{{ child.child_id }}">
+                                <button>Status Vaccinated</button>
+                            </form>
+                            <span> </span>
+                            <form action="{% url 'vacc_remaind_again' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="childId" value="{{ child.child_id }}">
+                                <button type="submit">Send reminder mail</button>
+                            </form>
+                            <span> </span>
+                            <form action="{% url 'delChild' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="childId" value="{{ child.child_id }}">
+                                <button>Delete</button>
+                            </form>
+                            
+                        </th>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>

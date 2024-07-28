@@ -1,0 +1,40 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    /* margin: 1%; */
+    background-color: #ffffff;
+}
+
+#body-content,.head-title{
+
+    display: flex;
+    padding: 0 2px;
+    
+
+}
+
+#side-content{
+    position: relative;
+    margin: 5px;
+    padding: 10px;
+    z-index: 1000; 
+    width: 30%;
+}
+
+#side-content .head-body ul{
+    list-style: none;
+    padding: 2px;
+    margin: 2px;
+
+}
+
+#side-content .head-body button{
+    margin: 4px 0 4px 0;
+    padding: 2px;
+    background-color: rgb(204, 243, 183);
+
+
+}

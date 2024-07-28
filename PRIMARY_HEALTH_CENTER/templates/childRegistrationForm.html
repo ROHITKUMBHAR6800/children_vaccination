@@ -7,13 +7,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Child Registration Form</title>
-    <link rel="stylesheet" href="RegistrationForm.css">
+    <link rel="stylesheet" href="{% static 'admin/css/RegistrationForm.css' %}">
 </head>
 
 <body>
     <header>
         <div id="top">
-            <img class="headerimg" src="static/admin/img/navsymbol.png" alt="">
+            <img class="headerimg" src="{% static 'admin/img/navsymbol.png' %}" alt="">
             <div id="heading">
                 <div id="contentmain">
                     <a href="https://www.unicef.org/india/stories/know-your-childs-vaccination-schedule"
@@ -28,7 +28,7 @@
                     <h2>HEALTHY CHILD HEALTHY INDIA</h2>
                 </a>
             </div>
-            <img class="headerimg" src="static/admin/img/babyhand.png" alt="logo">
+            <img class="headerimg" src="{% static 'admin/img/babyhand.png' %}" alt="logo">
         </div>
         <nav>
             <div id="navbar">
@@ -40,13 +40,14 @@
                         <li><a href="/">Home</a></li>
                         <li><a href="/aboutUs">About Us</a></li>
                         <li><a href="/contactUs">Contact Us</a></li>
+
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
     <main id="main">
-        <form action="/signupChild" method="post">
+        <form action="/signupChild/" method="post">
             {% csrf_token %}
             <div id="HeadingOfForm">
                 <span>CHILD REGISTRATION FORM</span>
@@ -61,7 +62,7 @@
                         <div id="firstspace">
                             <div class="pbm">
                                 <label for="firstname"><span class="pbm">CHILD NAME:</span> </label>
-                                <input type="text" id="firstname" class="pbm1" name="child" value="NOT GIVEN"
+                                <input type="text" id="firstname" class="pbm1" name="childName" value="NOT GIVEN"
                                     autocapitalize="charset" autocomplete="off">
                             </div>
                             <div class="pbm">
@@ -71,18 +72,18 @@
                             </div>
                             <div class="pbm">
                                 <label for="dob"><span class="pbm">BIRTH DATE:</span> </label>
-                                <input type="date" id="dob" class="pbm1" name="birth_date">
+                                <input type="date" id="dob" class="pbm1" name="birthDate">
                             </div>
                         </div>
                         <div>
                             <div class="pbm">
                                 <label for="fathername"><span class="pbm">FATHER NAME:</span> </label>
-                                <input type="text" id="fathername" class="pbm1" name="father" value autocapitalize="on"
+                                <input type="text" id="fathername" class="pbm1" name="fatherName" value autocapitalize="on"
                                     autocomplete="off" placeholder="ENTER FATHER NAME">
                             </div>
                             <div class="pbm">
                                 <label for="mothername"><span class="pbm">MOTHER NAME:</span> </label>
-                                <input type="text" id="mothername" class="pbm1" name="mother" autocapitalize="on"
+                                <input type="text" id="mothername" class="pbm1" name="motherName" autocapitalize="on"
                                     autocomplete="off" placeholder="ENTER MOTHER NAME">
                             </div>
                             <div class="pbm">
@@ -98,7 +99,7 @@
                     </div>
                     <div class="" id="birth_cert_id">
                         <label for="bid"><span class="pbm"> BIRTH CERTIFICATE ID:</span></label>
-                        <input type="text" id="bid" class="pbm1" name="birth_cert_id" placeholder="ENTER ID">
+                        <input type="text" id="bid" class="pbm1" name="birthCertificateId" placeholder="ENTER ID">
                     </div>
                 </div>
             </div>
@@ -109,7 +110,7 @@
                 <div class="firstflex">
                     <div class="pbm">
                         <label for="contact" class="pbm">MOBILE NO:</label>
-                        <input type="text" id="contact" class="pbm1" name="mobile" value autocomplete="off"
+                        <input type="text" id="contact" class="pbm1" name="mobileNo" value autocomplete="off"
                             placeholder="ENTER MOBILE NUMBER">
                     </div>
                     <div class="pbm">
@@ -150,12 +151,12 @@
                     <div class="">
                         <div class="pbm">
                             <label for="line4" class="pbm">PLOT/AREA:</label>
-                            <input type="text" id="line4" class="pbm1" name="home_add" value
+                            <input type="text" id="line4" class="pbm1" name="areaAdd" value
                                 placeholder="ENTER PLOT NO/STREET NAME/AREA" autocapitalize="on">
                         </div>
                         <div class="pbm">
                             <label for="line3" class="pbm">VILLEGE/TOWN:</label>
-                            <select name="village_town" id="line3" class="pbm1">
+                            <select name="villageTown" id="line3" class="pbm1">
                                 <option>select village/town</option>
                                 <option>hol</option>
                             </select>

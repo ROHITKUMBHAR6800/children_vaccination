@@ -1,18 +1,13 @@
-{% load static %}
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
-
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login Form</title>
-    <!-- <link rel="stylesheet" href="static/admin/css/loginForm.css">
-    <link rel="stylesheet" href="static/admin/css/RegistrationForm.css"> -->
-    <link rel="stylesheet" href="{% static 'admin/css/loginForm.css' %}">
-    <link rel="stylesheet" href="{% static 'admin/css/RegistrationForm.css' %}">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="{% static 'admin/css/homepage.css' %}">
 </head>
-
 <body>
     <header>
         <div id="top">
@@ -44,37 +39,44 @@
                     <li><a href="/contactUs">Contact Us</a></li>
                 </ul>
             </div>
+            <div id="login" class="ul">
+                <ul>
+                    <li><a href="/childRegistrationForm">CHILD CREATE</a></li>
+                </ul>
+            </div>
         </nav>
     </header>
-    <main id="container">
-        <form action="adminPage/" class="separate" method="post">
-            {% csrf_token %}
-            <div class="sep1">
-                <h2>ADMIN LOGIN</h2>
-            </div>
-            <div class="sep1" >
-                <input type="text" id="adminid" class="sep2" name="adminId" autocomplete="off" placeholder="ENTER ADMIN ID" required>
-            </div>
-            <div class="sep1">
-                <input type="password" id="password" class="sep2" name="password" autocomplete="off"
-                    placeholder="ENTER PASSWORD" required>
-            </div>
-            <div id="login">
-                <input type="submit" value="Login">
-            </div>
-            <div class="sep1" id="forpwd">
-                <a href="/forpwdForm">FORGOT PASSWORD ?</a>
-            </div>
-        </form>
-        <div class="separate">
-            <div class="sep1" id="newsign">
-                <span>CREATE NEW ADMIN</span>
-            </div>
-            <div id="signup">
-                <a href="/adminRegistrationForm"><input type="submit" value="Signup"></a>
-            </div>
-        </div>
-    </main>
-</body>
+        
+    <h2>Wellcome user - {{user_name}}</h2>
+    <h2>{{hospital_name}}</h2>
+    <h2>{{hospital_add}}</h2>
+    <table>
+        <thead>
+            <tr>
+                <td>Total children</td>
+                <td>Tolal Vaccination Done in Month</td>
+                <td>Total Remain for Vaccination</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{childCount}}</td>
+                <td>{{totalDone}}</td>
+                <td>{{totalRemain}}</td>
+            </tr>
+        </tbody>
+    </table>
 
+    <h3>Tolal Vaccination Done in Month children data</h3>
+    {% for data in doneData %}
+        <h3>{{data}}</h3>
+    {% endfor %}
+
+    <h3>Total Remain for Vaccination Children data</h3>
+    <ul>
+        {% for data in remainData %}
+            <h3>{{data}}</h3>
+        {% endfor %}
+    </ul>
+</body>
 </html>
