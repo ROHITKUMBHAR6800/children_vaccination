@@ -23,24 +23,33 @@ urlpatterns = [
     path('',views.homePage,name='homePage'),
     path('contactUs/',views.contactUsPage, name='contactUs'),
     path('aboutUs/',views.aboutUsPage, name='aboutUs'),
+
     path('adminLoginForm/', views.adminLoginForm, name='adminLoginForm'),
     path('adminRegistrationForm/', views.adminRegistrationForm, name='adminRegistrationForm'),
-    path('emailVerify/',views.verify_email, name='emailVerify'),
-    path('forpwdForm/', views.forgetPasswordForm, name='forpwdForm'),
+    path('signupAdmin/', views.admin_registration,name='signupAdmin'),
+    path('adminLoginForm/adminPage/',views.admin_page,name='admin_page'),
+
+    
     path('userLoginForm/', views.userLoginForm, name='userLoginForm'),
-    # path('""/adminLoginForm/', views.admin_login_form),
-    path('signupAdmin/',views.admin_registration,name='signupAdmin'),
-    # path('loginAdmin/',views.admin_login),
+    path('userRegistrationForm/', views.userRegistrationForm, name='userRegistrationForm'),
     path('signupUser/',views.user_registration,name='signupUser'),
-    path('adminPage/',views.admin_page,name='admin_page'),
-    path('userPage/',views.user_page,name='user_page'),
-    path('signupChild/',views.child_registration,name='signupChild'),
-    path('forpwd/',views.forgot_password,name='forpwd'),
-    path('chanpwd/',views.change_password,name='chanpwd'),
+    path('userLoginForm/userPage/',views.user_page,name='user_page'),
+    path('user/<str:user_id>/', views.user_detail, name='user_detail'),
     path('delUser/',views.delete_user,name='delUser'),
+
+    path('childRegistrationForm/', views.childRegistrationForm, name='childRegistrationForm'),
+    path('signupChild/',views.child_registration,name='signupChild'),
     path('delChild/',views.delete_child,name='delChild'),
     path('updChild/',views.update_child,name='updChild'),
-    path('vaccRemaind/',views.vacc_remind_again,name='vaccRemaind'),
+    path('child/<str:child_id>/', views.child_detail, name='child_detail'),
+
+    path('forpwd/',views.forgot_password,name='forpwd'),
+    path('emailVerify/',views.verify_email, name='emailVerify'),
+    path('forpwdForm/', views.forgetPasswordForm, name='forpwdForm'),
+    path('chanpwd/',views.change_password,name='chanpwd'),
     path('vaccDone/',views.vacc_done,name='vaccDone'),
     path('searchVaccDone/',views.search_vacc_done,name='searchVaccDone'),
+    path('vaccRemainderMail/',views.vacc_remaind_again,name='vacc_remaind_again'),
+    
+    
 ]
