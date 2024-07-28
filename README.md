@@ -13,7 +13,7 @@ Table of Contents
 12.	Future Enhancements
 13.	Screenshots
 14.	Project Repository
-Project Overview
+15.	Project Overview
 The Child Vaccination-Immunization Programme is a web application aimed at managing and tracking child vaccination schedules. The system allows hospital admins and users to register children, update their information, and notify parents about upcoming vaccinations.
 Features
 •	Child registration and information management
@@ -28,12 +28,16 @@ Technologies Used
 •	Task Queue: Celery
 •	Message Broker: Redis
 •	Version Control: GitHub
+
+16.
 System Requirements
 •	Python 3.8 or higher
 •	MySQL 5.7 or higher
 •	Redis server
 •	Celery 5.3.6
 •	Django 5.0.1
+
+17.
 Installation Guide
 1.	Clone the repository:
 git clone https://github.com/ROHITKUMBHAR6800/children_vaccination
@@ -53,6 +57,7 @@ python manage.py runserver
 8.	Start Redis server and Celery worker:
 redis-server
 celery -A PRIMARY_HEALTH_CENTER worker --loglevel=info
+18.
 Database Schema
 The project uses the following database schema:
 Admin
@@ -123,6 +128,7 @@ ChildVaccination
 •	vaccination_36month: CharField
 •	vaccination_48month: CharField
 •	vaccination_60month: CharField
+19.
 API Endpoints
 The following are some of the key API endpoints:
 •	GET /adminLoginForm/: Admin login form
